@@ -69,7 +69,12 @@ void loop() {
     buffer[buffer_pos++] = myIMU.readFloatAccelY();
     buffer[buffer_pos++] = myIMU.readFloatAccelZ();
 
+    // 2026-03-04
+    // 添加获取到的加速度在Serial端的打印
+    // Serial.println(buffer[buffer_pos]);
+
     if (buffer_pos >= EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE) {
+        Serial.println("started to process");
         signal_t signal;
         numpy::signal_from_buffer(buffer, EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE, &signal);
 
@@ -119,9 +124,14 @@ void handle_inference_result(ei_impulse_result_t result) {
             Serial.println(")");
 
             if (Bluefruit.connected()) {
+                Serial.println("--- sending to phone via BLE");
                 bleuart.print("AI: ");
                 bleuart.println(label);
+            }else{
+                Serial.println("BLE not connected");
             }
+        }else{
+            Serial.println("detected idle");
         }
     }
 }
