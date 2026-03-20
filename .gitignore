@@ -1,0 +1,26 @@
+# Models
+*.h5
+*.tflite
+
+# Training & raw data
+*.npy
+*.csv
+
+# Logs
+*.log
+*.txt
+log/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
